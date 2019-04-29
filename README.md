@@ -17,6 +17,8 @@
     
     相对于重新设计新的kernel,本文从分析导致Linux kernel在多核处理器硬件中产生scalability bottleneck的原因入手,利用Run application,Find bottlenecks,Fix bottlenecks, re-run application的方式改进linux kernel在多核处理器硬件中的scalability问题。
 
+* **Fixed me**
+
 * **The important related works/papers**
     * Memory Disaggregation and Remote memory
     1. Lim等人首先提出了硬件分解内存的概念，通过两种方式访问硬件分解后的内存：（1）网络（2）透明地内存指令。
