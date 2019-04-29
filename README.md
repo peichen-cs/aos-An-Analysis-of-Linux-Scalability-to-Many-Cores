@@ -6,19 +6,12 @@
     随着硬件技术的发展，传统的将所有硬件集成到单个服务器上进行管理的方式存在许多缺陷。
     例如硬件资源利用率低、扩展性差、异构性差以及故障处理等问题。
 
-将硬件资源进行分解后独立管理，并将各个硬件模块通过网络进行连接可以很好地缓解上述问题。
-
-虽然硬件资源分解具有诸多优点，但目前仍没有相应的操作系统和软件系统对其进行很好地管理。本文针对硬件分解提出一种新的操作系统设计模型-**splitkernel**，该模型将传统的操作系统功能分解成彼此松耦合的**moniter**,这些**moniter**分别运行在不同的硬件模块上并对其进行管理。
-
-针对这种新的操作系统设计模式，本文构建了**LegoOS**，从用户的角度来看**LegoOS**就是一组分布式服务器，在**LegoOS**内部，单个应用程序可以横跨多个处理器、内存和存储硬件组件。
-
-本文利用普通服务器模拟了各个硬件组件，并在x86-64指令集上实现了**LegoOS**。实验结果表明，**LegoOS**在极大地提升硬件资源利用率并降低故障率的同时，性能与传统的单一服务器相同。
+传统的kernel在多核处理器硬件上不能很好地扩展, 当处理器核数增加时,上层应用将在kernel部分花费更多的时间,kernel成为导致scalability差的主要瓶颈. 因此,已经有相关研究提出新的kernel设计方式(例如Barrelfish,Corey和fos),以实现更好的扩展性. 相比其他的传统kernel而言,Linux 社区对Linux在scalability方面做了更多的改进, 因此,本文选取Linux作为传统kernel的代表,选取一些典型应用测试集对Linux在多核处理器下的scalability问题做了评估. 该测试集(论文又叫MOSBENCH)包含7个分属不同应用的可并行化的用户程序,分别是Exim(mail server),memcached(Object cache),Apache( Web server),PostgreSQL(Database),gmake(Parallel build),Psearchy(File indexer)和a multicore MapReduce library. 每个可并行化的应用程序对Linux kernel的特定component有更高的要求(本文主要指该component在多核处理器场景下的scalability表现). 
 
 * **Problems this paper mentioned**
     
     * 传统的单一架构服务器存在的问题
-        1.
-            很难实现机器的高内存利用率和CPU资源利用率
+        1.很难实现机器的高内存利用率和CPU资源利用率
         2. 在现有的数据中心添加新的硬件设备成本很高
         3. 当服务器中单个组件出现故障，整个机器就不可用了
         4. 系统的异构性很差
