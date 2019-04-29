@@ -3,8 +3,6 @@
 ---
 >**背景**
 
-    随着硬件技术的发展，传统的将所有硬件集成到单个服务器上进行管理的方式存在许多缺陷。
-    例如硬件资源利用率低、扩展性差、异构性差以及故障处理等问题。
 
 传统的kernel在多核处理器硬件上不能很好地扩展, 当处理器核数增加时,上层应用将在kernel部分花费更多的时间,kernel成为导致scalability差的主要瓶颈. 因此,已经有相关研究提出新的kernel设计方式(例如Barrelfish,Corey和fos),以实现更好的扩展性. 相比其他的传统kernel而言,Linux 社区对Linux在scalability方面做了更多的改进, 因此,本文选取Linux作为传统kernel的代表,选取一些典型应用测试集对Linux在多核处理器下的scalability问题做了评估. 该测试集(论文又叫MOSBENCH)包含7个分属不同应用的可并行化的用户程序,分别是Exim(mail server),memcached(Object cache),Apache( Web server),PostgreSQL(Database),gmake(Parallel build),Psearchy(File indexer)和a multicore MapReduce library. 每个可并行化的应用程序对Linux kernel的特定component有更高的要求(本文主要指该component在多核处理器场景下的scalability表现). 
 
