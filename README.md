@@ -4,7 +4,9 @@
 >**背景**
 
 
-传统的kernel在多核处理器硬件上不能很好地扩展, 当处理器核数增加时,上层应用将在kernel部分花费更多的时间,kernel成为导致scalability差的主要瓶颈. 因此,已经有相关研究提出新的kernel设计方式(例如Barrelfish,Corey和fos),以实现更好的扩展性. 相比其他的传统kernel而言,Linux 社区对Linux在scalability方面做了更多的改进, 因此,本文选取Linux作为传统kernel的代表,选取一些典型应用测试集对Linux在多核处理器下的scalability问题做了评估. 该测试集(论文又叫MOSBENCH)包含7个分属不同应用的可并行化的用户程序,分别是Exim(mail server),memcached(Object cache),Apache( Web server),PostgreSQL(Database),gmake(Parallel build),Psearchy(File indexer)和a multicore MapReduce library. 每个可并行化的应用程序对Linux kernel的特定component有更高的要求(本文主要指该component在多核处理器场景下的scalability表现). 
+传统的kernel在多核处理器硬件上不能很好地扩展, 当处理器核数增加时,上层应用将在kernel部分花费更多的时间,kernel成为导致scalability差的主要瓶颈. 因此,已经有相关研究提出新的kernel设计方式(例如Barrelfish,Corey和fos),以实现更好的扩展性. 相比其他的传统kernel而言,Linux 社区对Linux在scalability方面做了更多的改进, 因此,本文选取Linux作为传统kernel的代表,选取一些典型应用测试集对Linux在多核处理器下的scalability问题做了评估. 该测试集(论文又叫MOSBENCH)包含7个分属不同应用的可并行化的用户程序,分别是Exim(mail server),memcached(Object cache),Apache( Web server),PostgreSQL(Database),gmake(Parallel build),Psearchy(File indexer)和a multicore MapReduce library. 每个可并行化的应用程序对Linux kernel的特定component有更高的要求(本文主要指该component在多核处理器场景下的scalability表现). 通过测试分析,本文归纳出三种导致Linux在多核处理器下scalability差的原因:(1)Linux kernel本身实现的问题;(2)被测试的应用程序在用户级的设计和实现问题;(3)被测试应用使用linux kernel service所导致的问题.
+
+在发现导致scalability差的问题后,本文对Linux 2.6.35-rc5 kernel做了16处提升scalability的补丁,并编译出新的kernel(PK). 这些补丁之所以能改进Linux kernel在多核处理器下的scalability问题,很大部分依赖于本文提出的一个新的idea,即sloppy counter. sloppy counter能很好地解决shared counter造成的scalability瓶颈问题. 此为本文也提供了一套用于测试os calability的benchmark,即MOSBENCH, 并对改进MOSBENCH benchmark在应用层面遇到的scalability问题的方法进行了描述. 最后, 本文得出的结论是-没有明显的scalability的问题而导致放弃传统的kernel设计模式.
 
 * **Problems this paper mentioned**
     
