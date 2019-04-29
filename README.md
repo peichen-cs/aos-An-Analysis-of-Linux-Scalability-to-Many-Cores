@@ -10,13 +10,12 @@
 
 * **Problems this paper mentioned**
     
-    * 传统的单一架构服务器存在的问题
-        1.很难实现机器的高内存利用率和CPU资源利用率
-        2. 在现有的数据中心添加新的硬件设备成本很高
-        3. 当服务器中单个组件出现故障，整个机器就不可用了
-        4. 系统的异构性很差
+    * 传统的kernel在多核处理器硬件上不能很好地扩展,主要表现为:当处理器核数增加时,上层应用将在kernel部分花费更多的时间,kernel成为导致scalability差的主要瓶颈. 本文通过测试分析,归纳出三种导致Linux在多核处理器下scalability差的原因:
+        1.Linux kernel本身实现的问题
+        2.被测试的应用程序在用户级的设计和实现问题
+        3.被测试应用使用linux kernel service所导致的问题
     
-    硬件资源分解虽然能解决上述问题，但依旧存在诸多挑战。传统的操作系统，例如，Monolithic kernels，microkernels和exokernel无法通过重构后部署于硬件分解的场景中，因为依旧会出现网络开销过大、单一组件故障导致的系统不可用的问题。
+    相对于重新设计新的kernel,本文从分析导致Linux kernel在多核处理器硬件中产生scalability bottleneck的原因入手,利用Run application,Find bottlenecks,Fix bottlenecks, re-run application的方式改进linux kernel在多核处理器硬件中的scalability问题。
 
 * **The important related works/papers**
     * Memory Disaggregation and Remote memory
