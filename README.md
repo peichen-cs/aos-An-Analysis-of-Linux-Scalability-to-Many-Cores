@@ -11,9 +11,9 @@
 * **Problems this paper mentioned**
     
     * 传统的kernel在多核处理器硬件上不能很好地扩展,主要表现为:当处理器核数增加时,上层应用将在kernel部分花费更多的时间,kernel成为导致scalability差的主要瓶颈. 本文通过测试分析,归纳出三种导致Linux在多核处理器下scalability差的原因:
-        1.Linux kernel本身实现的问题
-        2.被测试的应用程序在用户级的设计和实现问题
-        3.被测试应用使用linux kernel service所导致的问题
+        1. Linux kernel本身实现的问题
+        2. 被测试的应用程序在用户级的设计和实现问题
+        3. 被测试应用使用linux kernel service所导致的问题
     
     相对于重新设计新的kernel,本文从分析导致Linux kernel在多核处理器硬件中产生scalability bottleneck的原因入手,利用Run application,Find bottlenecks,Fix bottlenecks, re-run application的方式改进linux kernel在多核处理器硬件中的scalability问题。
 
