@@ -17,13 +17,17 @@
     
     相对于重新设计新的kernel,本文从分析导致Linux kernel在多核处理器硬件中产生scalability bottleneck的原因入手,利用Run application,Find bottlenecks,Fix bottlenecks, re-run application的方式改进linux kernel在多核处理器硬件中的scalability问题。
 
-* **Fixed me**
-
 * **The important related works/papers**
-    * Memory Disaggregation and Remote memory
-    1. Lim等人首先提出了硬件分解内存的概念，通过两种方式访问硬件分解后的内存：（1）网络（2）透明地内存指令。
-    * Storage Disaggregation
-    1. ReFlex将网络和存储紧密地整合在一起，最小化软件开销，实现了存储资源分解
+    * Linux scalability improvements
+    1. Linux社区为了改善linux kernel 的scalability问题，重构了kernel的很多子系统，例如Read-Copy-Update，local run queues，libnuma和improved
+load-balancing support方法。部分公司，例如IBM和SGI也直接开源了其相关代码。
+    * Linux scalability studies.
+    1. Gough等人研究了运行在dual-core Intel Itanium processors的Linux 2.6.18的scalability问题，并发现Linux run queue, slab allocator,
+和 I/O processing组件存在严重的scalability问题。
+    2. Veal and Foong使用SPECweb2005测试负载研究了运行在8-core AMD Opteron computer的Linux 2.6.20.3 kernel的scalability问题，并发现Linux 2.6.20.3 kernel在scheduling和directory lookup的实现上存在严重的scalability问题。
+    3. Cui等人使用microbenchmarks发现Linux kernel在memory-mapped file creation and deletion上存在大量的scalability问题。
+    4. Corey发现因为不必要的sharing导致Linux file descriptor和virtual memory management存在严重的scalability问题。
+    
 
 * **Some intriguing aspects of the paper**
     * 将传统操作系统的功能分解成不同moniter，每个moniter管理一个硬件组件，并提供虚拟化、保护等功能。
