@@ -30,11 +30,11 @@ load-balancing support方法。部分公司，例如IBM和SGI也直接开源了�
     
 
 * **Some intriguing aspects of the paper**
-    * 将传统操作系统的功能分解成不同moniter，每个moniter管理一个硬件组件，并提供虚拟化、保护等功能。
-    * moniter之间共享最小的状态，彼此之间松耦合。
-    * 在每个硬件组件上都有一个硬件控制器运行相应的moniter，例如ASIC和FPGA。以此极大地增强了系统的异构性。
-    * 系统的各个组件之间不维护缓存一致性，以减少网络开销，应用可以使用消息接口实现自己的一致性保障。
-    * 通过全局资源管理器来控制组件故障对系统的影响。
+    * 提供了一套可以用来测试kernel scalability的测试组件。
+    * 使用对包头进行hash的方式修改了Linux kernel network部分中的accept接口，使得每个connection都能被local core’s queue所接收和处理，并对网卡的多队列处理进行相应的load balance。降低了多核环境下对网络包处理时产生的cache misses 和 queue locking成本。
+    * 提出了sloppy counters的方式，改进了多核场景下修改shared counters时因为coherence hardware所造成的scalability问题。
+    * 使用Lock-free comparison的方式进一步加速lookups操作。
+    * 将部分shared数据结构修改成Per-core的数据结构，减少false sharing造成的影响，使用细粒度的锁减少不必要的锁开销。
 
  * **Test/compare/analyze**
 
